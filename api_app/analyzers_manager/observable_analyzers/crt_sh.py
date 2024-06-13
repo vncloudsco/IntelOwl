@@ -15,12 +15,13 @@ class Crt_sh(classes.ObservableAnalyzer):
 
     url = "https://crt.sh"
 
-    def analyze(self, observable):
+    def run(self):
+        headers = {"accept": "application/json"}
         response = requests.get(
-            f"{self.url}/?q={observable}", headers={"accept": "application/json"}
+            f"{self.url}/?q={self.observable_name}", headers=headers
         )
         response.raise_for_status()
-        response.raise_for_status()
+        response = response.json()
         return response
 
     @classmethod
